@@ -6,43 +6,44 @@ const gameWall = document.getElementById("gameContainer");
 let moveX = 800;
 let moveY = 800;
 
-for (i = 0; i < 5; i++) {
-  const spawn = document.createElement("div");
-  gameWall.appendChild(spawn);
-  spawn.classList.add("ennemy");
-  spawn.style.top = Math.floor(Math.random() * 800) + "px";
-  spawn.style.left = Math.floor(Math.random() * 800) + "px";
-}
+for (let i = 0; i < 10; i++) {
+    const spawn = document.createElement("div");
+    gameWall.appendChild(spawn);
+    spawn.classList.add("enemy");
+    spawn.style.top = Math.floor(Math.random() * 800) + "px";
+    spawn.style.left = Math.floor(Math.random() * 800) + "px";
+  }
+  
+  const enemies = document.querySelectorAll(".enemy");
+  console.log(enemies);
+  
+  function enemyMove(enemy) {
 
-const ennemy = document.querySelectorAll(".ennemy");
-console.log(ennemy);
-
-let ennemyMove = function () {
     let checkMove = Math.floor(Math.random() * 4 + 1);
-    
-    if (checkMove == 1) {
-        ennemy.style.top = ennemy.style.top + moveSize + "px";
-    } else if (checkMove == 2) {
-        ennemy.style.top = ennemy.style.top - moveSize + "px";
-    } else if (checkMove == 3) {
-        ennemy.style.left = ennemy.style.left + moveSize + "px";
-    } else if (checkMove == 4) {
-        ennemy.style.left = ennemy.style.left - moveSize + "px";
+    let enemyTop = parseInt(enemy.style.top);
+    let enemyLeft = parseInt(enemy.style.left);
+  
+    if (checkMove === 1 && enemyTop < 800 - moveSize) {
+      enemy.style.top = enemyTop + moveSize + "px";
+    } else if (checkMove === 2 && enemyTop > 0) {
+      enemy.style.top = enemyTop - moveSize + "px";
+    } else if (checkMove === 3 && enemyLeft < 800 - moveSize) {
+      enemy.style.left = enemyLeft + moveSize + "px";
+    } else if (checkMove === 4 && enemyLeft > 0) {
+      enemy.style.left = enemyLeft - moveSize + "px";
     }
-};
+  }
+  
+  enemies.forEach((enemy) => {
+    setInterval(() => {
+      enemyMove(enemy);
+    }, 1500); // Adjust the interval duration as needed
+  });
 
 
-for(i=0; i<10; i++){
-    ennemy.forEach(e => {
-ennemyMove(e);
-});
-}
+// document.body.addEventListener("click", enemyMove())
 
-
-// document.body.addEventListener("click", ennemyMove())
-
-
-// if(ennemy.style.top == player.style.top){
+// if(enemy.style.top == player.style.top){
 //     player.style.display = "none";
 // }
 

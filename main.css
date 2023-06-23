@@ -16,7 +16,7 @@
   z-index: 2;
 }
 
-.ennemy{
+.enemy{
   width: 40px;
   height: 52px;
   background-image: url("img/zombie/character_zombie_side.png");
