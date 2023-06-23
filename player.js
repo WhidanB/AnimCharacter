@@ -6,7 +6,18 @@ const gameWall = document.getElementById("gameContainer");
 let moveX=800;
 let moveY=800;
 
+for(i=0; i<5; i++){
+var ennemy = document.createElement("div");
+gameWall.appendChild(ennemy);
+ennemy.classList.add("ennemy");
+ennemy.style.top = Math.floor(Math.random() * 800) + "px";
+ennemy.style.left = Math.floor(Math.random() * 800) + "px";
 
+}
+
+if(ennemy.style.top == player.style.top){
+    player.style.display = "none";
+}
 
 
 
@@ -18,10 +29,10 @@ document.addEventListener("keydown", function (event) {
     playerWalkY = playerWalkY - 1;
     player.style.top = player.offsetTop - moveSize + "px";
     }
-    if(player.style.backgroundImage == 'url("img/6.png")'){
-        player.style.backgroundImage = 'url("img/5.png")';
+    if(player.style.backgroundImage == 'url("img/heros/character_maleAdventurer_side.png")'){
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_walk1.png")';
     }else{
-        player.style.backgroundImage = 'url("img/6.png")';
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_side.png")';
         }
     
   } else if (event.code == "ArrowRight") {
@@ -29,10 +40,10 @@ document.addEventListener("keydown", function (event) {
         playerWalkX = playerWalkX + 1;
         player.style.left = player.offsetLeft + moveSize + "px";
     }
-    if(player.style.backgroundImage == 'url("img/8.png")'){
-        player.style.backgroundImage = 'url("img/7.png")';
+    if(player.style.backgroundImage == 'url("img/heros/character_maleAdventurer_side.png")'){
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_walk1.png")';
     }else{
-        player.style.backgroundImage = 'url("img/8.png")';
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_side.png")';
         }
 
   } else if (event.code == "ArrowDown") {
@@ -41,20 +52,20 @@ document.addEventListener("keydown", function (event) {
         player.style.top = player.offsetTop + moveSize + "px";
         
         }
-    if(player.style.backgroundImage == 'url("img/2.png")'){
-        player.style.backgroundImage = 'url("img/1.png")';
+    if(player.style.backgroundImage == 'url("img/heros/character_maleAdventurer_side.png")'){
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_walk1.png")';
     }else{
-        player.style.backgroundImage = 'url("img/2.png")';
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_side.png")';
         }
   } else if (event.code == "ArrowLeft") {
     if(playerWalkX >0){
         playerWalkX = playerWalkX - 1;
         player.style.left = player.offsetLeft - moveSize + "px";
     }
-    if(player.style.backgroundImage == 'url("img/4.png")'){
-        player.style.backgroundImage = 'url("img/3.png")';
+    if(player.style.backgroundImage == 'url("img/heros/character_maleAdventurer_side.png")'){
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_walk1.png")';
     }else{
-        player.style.backgroundImage = 'url("img/4.png")';
+        player.style.backgroundImage = 'url("img/heros/character_maleAdventurer_side.png")';
         }
   }
 });
