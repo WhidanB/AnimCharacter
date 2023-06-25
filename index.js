@@ -6,6 +6,7 @@ const gameWall = document.getElementById("gameContainer");
 let moveX = 800;
 let moveY = 800;
 
+function enemySpawn(){
 for (let i = 0; i < 10; i++) {
     const spawn = document.createElement("div");
     gameWall.appendChild(spawn);
@@ -13,33 +14,57 @@ for (let i = 0; i < 10; i++) {
     spawn.style.top = Math.floor(Math.random() * 800) + "px";
     spawn.style.left = Math.floor(Math.random() * 800) + "px";
   }
-  
-  const enemies = document.querySelectorAll(".enemy");
+  enemies = document.querySelectorAll(".enemy");
+}
+
+enemySpawn();
+const spawn = setInterval(enemySpawn, 10000);
+
+
+
+function getPlayerCoordinates() {
+  const playerRect = player.getBoundingClientRect();
+  return {
+    top: playerRect.top + playerRect.height / 2,
+    left: playerRect.left + playerRect.width / 2
+  };
+}
+
+function enemyMove(enemy) {
+  const playerCoordinates = getPlayerCoordinates();
+  const playerTop = playerCoordinates.top;
+  const playerLeft = playerCoordinates.left;
   console.log(enemies);
   
-  function enemyMove(enemy) {
-
-    let checkMove = Math.floor(Math.random() * 4 + 1);
     let enemyTop = parseInt(enemy.style.top);
     let enemyLeft = parseInt(enemy.style.left);
   
-    if (checkMove === 1 && enemyTop < 800 - moveSize) {
-      enemy.style.top = enemyTop + moveSize + "px";
-    } else if (checkMove === 2 && enemyTop > 0) {
-      enemy.style.top = enemyTop - moveSize + "px";
-    } else if (checkMove === 3 && enemyLeft < 800 - moveSize) {
-      enemy.style.left = enemyLeft + moveSize + "px";
-    } else if (checkMove === 4 && enemyLeft > 0) {
-      enemy.style.left = enemyLeft - moveSize + "px";
+    if (enemyTop < playerTop) {
+      enemyTop += moveSize;
+    } else if (enemyTop > playerTop) {
+      enemyTop -= moveSize;
     }
-  }
   
-  enemies.forEach((enemy) => {
-    setInterval(() => {
-      enemyMove(enemy);
-    }, 1500); // Adjust the interval duration as needed
-  });
+    if (enemyLeft < playerLeft) {
+      enemyLeft += moveSize;
+    } else if (enemyLeft > playerLeft) {
+      enemyLeft -= moveSize;
+    }
+  
+    // Vérifier les limites du cadre
+    enemyTop = Math.max(0, Math.min(moveY - moveSize, enemyTop));
+    enemyLeft = Math.max(0, Math.min(moveX - moveSize, enemyLeft));
+  
+    enemy.style.top = enemyTop + "px";
+    enemy.style.left = enemyLeft + "px";
+  }
 
+  setInterval(() => {
+    enemies = document.querySelectorAll(".enemy");
+  enemies.forEach((enemy) => {
+      enemyMove(enemy);
+    })}, 400); // Adjust the interval duration as needed
+  ;
 
 // document.body.addEventListener("click", enemyMove())
 
@@ -58,13 +83,14 @@ document.addEventListener("keydown", function (event) {
     if (
       player.style.backgroundImage ==
       'url("img/heros/character_maleAdventurer_side.png")'
-    ) {
-      player.style.backgroundImage =
+      ) {
+        player.style.backgroundImage =
         'url("img/heros/character_maleAdventurer_walk1.png")';
-    } else {
-      player.style.backgroundImage =
+      } else {
+        player.style.backgroundImage =
         'url("img/heros/character_maleAdventurer_side.png")';
-    }
+      }
+      getPlayerCoordinates();
   } else if (event.code == "ArrowRight") {
     if (playerWalkX < 32) {
       playerWalkX = playerWalkX + 1;
@@ -80,6 +106,7 @@ document.addEventListener("keydown", function (event) {
       player.style.backgroundImage =
         'url("img/heros/character_maleAdventurer_side.png")';
     }
+    getPlayerCoordinates();
   } else if (event.code == "ArrowDown") {
     if (playerWalkY < 32) {
       playerWalkY = playerWalkY + 1;
@@ -95,6 +122,7 @@ document.addEventListener("keydown", function (event) {
       player.style.backgroundImage =
         'url("img/heros/character_maleAdventurer_side.png")';
     }
+    getPlayerCoordinates();
   } else if (event.code == "ArrowLeft") {
     if (playerWalkX > 0) {
       playerWalkX = playerWalkX - 1;
@@ -111,4 +139,5 @@ document.addEventListener("keydown", function (event) {
         'url("img/heros/character_maleAdventurer_side.png")';
     }
   }
+  getPlayerCoordinates();
 });
